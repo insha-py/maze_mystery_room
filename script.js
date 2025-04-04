@@ -11,7 +11,7 @@ const mazeData = [
   "# ### # ### #",
   "# #   # 6 # #",
   "# # # ### # #",
-  "#   # 4     #"
+  "#   # 4   G  #"
 ];
 
 const maze = document.getElementById('maze');
@@ -19,17 +19,29 @@ let playerX = 1, playerY = 1;
 
 function drawMaze() {
   maze.innerHTML = '';
-  for (let y = 0; y < 10; y++) {
-    for (let x = 0; x < 10; x++) {
+  for (let y = 0; y < mazeData.length; y++) {
+    for (let x = 0; x < mazeData[y].length; x++) {
       const cell = document.createElement('div');
       cell.classList.add('cell');
-      if (mazeData[y][x] === '#') cell.classList.add('wall');
-      if (x === playerX && y === playerY) cell.classList.add('player');
-      if (mazeData[y][x] === 'G') cell.classList.add('goal');
+
+      if (mazeData[y][x] === '#') {
+        cell.classList.add('wall');
+      } else if (mazeData[y][x] === 'G') {
+        cell.classList.add('goal');
+      } else if (!isNaN(parseInt(mazeData[y][x]))) {
+        cell.textContent = mazeData[y][x]; // Display number in the cell
+        cell.classList.add('number'); // Optional: Style numbers differently
+      }
+
+      if (x === playerX && y === playerY) {
+        cell.classList.add('player');
+      }
+
       maze.appendChild(cell);
     }
   }
 }
+
 
 function move(dx, dy) {
   const newX = playerX + dx;
