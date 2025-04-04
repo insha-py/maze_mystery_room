@@ -25,7 +25,7 @@ body {
 .player { background-color: red; }
 .wall { background-color: black; }
 .goal { background-color: green; color: white; }
-.number { color: blue; font-weight: bold; }
+.number { color: white; font-weight: bold; }
 
 /* Mobile Controls */
 #controls {
