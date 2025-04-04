@@ -11,7 +11,7 @@ const mazeData = [
   "# ### # ### #",
   "# #   # 6 # #",
   "# # # ### # #",
-  "#   # 4   G #"
+  "######4###G##"
 ];
 
 const maze = document.getElementById('maze');
