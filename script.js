@@ -51,7 +51,7 @@ function move(dx, dy) {
     playerY = newY;
     drawMaze();
     if (mazeData[playerY][playerX] === 'G') {
-      alert('You Win!');
+      alert('You Win! Now trace your steps and figure out the code!');
     }
   }
 }
