@@ -11,7 +11,7 @@ const mazeData = [
   "# ### # ### #",
   "# #   # 6 # #",
   "# # # ### # #",
-  "#   # 4   G  #"
+  "#   # 4   G #"
 ];
 
 const maze = document.getElementById('maze');
@@ -29,8 +29,8 @@ function drawMaze() {
       } else if (mazeData[y][x] === 'G') {
         cell.classList.add('goal');
       } else if (!isNaN(parseInt(mazeData[y][x]))) {
-        cell.textContent = mazeData[y][x]; // Display number in the cell
-        cell.classList.add('number'); // Optional: Style numbers differently
+        cell.textContent = mazeData[y][x]; // Display numbers
+        cell.classList.add('number');
       }
 
       if (x === playerX && y === playerY) {
@@ -42,10 +42,10 @@ function drawMaze() {
   }
 }
 
-
 function move(dx, dy) {
   const newX = playerX + dx;
   const newY = playerY + dy;
+
   if (mazeData[newY][newX] !== '#') {
     playerX = newX;
     playerY = newY;
@@ -56,6 +56,30 @@ function move(dx, dy) {
   }
 }
 
+// Swipe Controls for Mobile
+let touchStartX = 0, touchStartY = 0;
+
+document.addEventListener("touchstart", function(e) {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+});
+
+document.addEventListener("touchend", function(e) {
+  let touchEndX = e.changedTouches[0].clientX;
+  let touchEndY = e.changedTouches[0].clientY;
+
+  let dx = touchEndX - touchStartX;
+  let dy = touchEndY - touchStartY;
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    if (dx > 50) move(1, 0);  // Right swipe
+    else if (dx < -50) move(-1, 0); // Left swipe
+  } else {
+    if (dy > 50) move(0, 1); // Down swipe
+    else if (dy < -50) move(0, -1); // Up swipe
+  }
+});
+
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowUp') move(0, -1);
   if (e.key === 'ArrowDown') move(0, 1);
@@ -64,4 +88,3 @@ document.addEventListener('keydown', e => {
 });
 
 drawMaze();
-
